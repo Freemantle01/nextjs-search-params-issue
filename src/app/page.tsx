@@ -47,7 +47,13 @@ function useSearchParamByString(
         const params = new URLSearchParams(searchParams);
         params.set(key, value);
 
-        router.replace(`${pathname}?${params.toString()}`);
+        // Issue this is sending rsc requests
+        // router.replace(`${pathname}?${params.toString()}`);
+
+        // Solution https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#windowhistoryreplacestate
+        //window.history.pushState(null, "", `?${params.toString()}`);
+        // or
+        window.history.replaceState(null, "", `${pathname}?${params.toString()}`);
     };
 
     const searchParamValue = searchParams.get(key);
